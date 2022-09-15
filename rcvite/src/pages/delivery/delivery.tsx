@@ -20,16 +20,21 @@ export const Delivery: React.FC<{msg: string}> = () => {
         setFilteredData(filtered);
     }
 
-    const handleSearch = (e: any) => {
-        let filtered = e.target.value ? items.filter(x => x.includes(e.target.value)) : items;
-        update({value: e.target.value});
+    const handleSearch = (value: any): void => {
+        let filtered = value ? items.filter(x => x.includes(value)) : items;
+        update({value: value});
         setFilteredData(filtered);
     }
+
+    const dataFilter = { value: state.value, onSearch: handleSearch };
 
     return (
     <Grid container spacing={2}>
         <Grid item xs={12} lg={3}>
-            <DataFilter value={state.value}></DataFilter>
+            <DataFilter 
+                { ... dataFilter }
+            >
+            </DataFilter>
         </Grid>
     </Grid>
     )

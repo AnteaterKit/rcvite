@@ -2,15 +2,17 @@ import { Box, Button, Card, CardContent, CardHeader, Grid, TextField } from "@mu
 import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 
-export const DataFilter: React.FC<{value: string}> = (props) => {
-
+export const DataFilter: React.FC<{value: string, onSearch?: (value: any) => void }> = (props) => {
+    const { onSearch } = props;
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = (data: any) => {
         
     }
 
     const handleSearch = (e: any) => {
-        
+        if (onSearch) {
+            onSearch(e.target.value);
+        }
     }
 
     return (
