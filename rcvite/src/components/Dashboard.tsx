@@ -31,6 +31,14 @@ const mainListItems = (
                 <ListItemText primary="Orders" />
             </ListItemButton>
         </Link>
+        <Link to="/delivery">
+            <ListItemButton>
+                <ListItemIcon>
+                <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Delivery" />
+            </ListItemButton>
+        </Link>
     </React.Fragment>
   );
 
@@ -157,7 +165,7 @@ function DashboardContent() {
                     }}
                     >
                     <Toolbar />
-                    <Container sx={{ mt: 4, mb: 4 }}>
+                    <Container maxWidth='false' sx={{ mt: 4, mb: 4 }}>
                         <Outlet />
                     </Container>
                 </Box>     

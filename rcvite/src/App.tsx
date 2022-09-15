@@ -2,12 +2,17 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import Dashboard from './components/Dashboard'
+import React from 'react';
+import { FilterProvider } from './state/filter.state';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-   <Dashboard></Dashboard>
+    <FilterProvider>
+        <Dashboard></Dashboard>
+    </FilterProvider>
+ 
   )
 }
 
