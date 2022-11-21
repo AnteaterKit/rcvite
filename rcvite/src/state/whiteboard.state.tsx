@@ -29,13 +29,7 @@ export function UsersProvider(props: PropsWithChildren<{}>) {
 }
 */
 
-export type Action = {type: 'loading'} | {type: 'load'} | {type: 'loaded'}
-
-export type WbDispatch = (action: Action) => void;
-
-const d = (): Action => {
-    return { type: 'loading'};
-  };
+export type Action = 'loading' | 'load' |  'loaded';
 
 const initialState = {state: { loading: true } } as ConxtextState;
 const WhiteBoardStore = createContext(initialState);
@@ -48,7 +42,7 @@ const WhiteBoardStore = createContext(initialState);
 //};
 
 function whiteboardReducer(state: WhiteBoardState, action: Action) {
-    switch (action.type) {
+    switch (action) {
       case 'load':
         return {  ...state,  loading: true }
       case 'loaded': {
@@ -63,9 +57,7 @@ function whiteboardReducer(state: WhiteBoardState, action: Action) {
             }
         ] };
       }
-      default: {
-        throw new Error(`Unhandled action type: ${action}`)
-      }
+      default: return {  ...state }
     }
   }
 
@@ -77,12 +69,5 @@ const WhiteboardStateProvider = ({children}: PropsWithChildren) => {
     </WhiteBoardStore.Provider>;
 };
 
-function useLoad() {
-    const context = React.useContext(WhiteBoardStore)
-    if (context === undefined) {
-      throw new Error('useCount must be used within a WhiteBoardStore')
-    }
-    return context
-}
 
 export { WhiteBoardStore, WhiteboardStateProvider };
