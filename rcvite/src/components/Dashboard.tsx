@@ -39,6 +39,14 @@ const mainListItems = (
                 <ListItemText primary="Delivery" />
             </ListItemButton>
         </Link>
+        <Link to="/whiteboard">
+            <ListItemButton>
+                <ListItemIcon>
+                <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Whiteboard" />
+            </ListItemButton>
+        </Link>
     </React.Fragment>
   );
 
