@@ -1,4 +1,4 @@
-import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useReducer, useState } from "react";
+import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useReducer, useState } from "react";
 
 export interface User {
     name: string;
@@ -15,11 +15,14 @@ const defalutState: WhiteBoardState = {
     users: new Array<User>()
 };
 
+type ConxtextState = {
+  state: WhiteBoardState,
+  dispatch: Dispatch<Action>
+}
+
 /*
 const userUpdate: Dispatch<SetStateAction<User[]>> = () => defalutState;
-
 export const UserContext = React.createContext({state: defalutState, update: userUpdate});
-
 export function UsersProvider(props: PropsWithChildren<{}>) {
     const [state, update] = useState(defalutState);
     return <UserContext.Provider value={{ state, update }} {...props} />;
@@ -34,7 +37,7 @@ const d = (): Action => {
     return { type: 'loading'};
   };
 
-const initialState = {};
+const initialState = {state: { loading: true } } as ConxtextState;
 const WhiteBoardStore = createContext(initialState);
 
 // https://stackblitz.com/edit/reactjs-usecontext-usereducer-state-management?file=src%2FStore.js
@@ -52,7 +55,7 @@ function whiteboardReducer(state: WhiteBoardState, action: Action) {
         return { loading: false, users: [
             {
                 name: 'Hello',
-                avatarPath: 'https://media.istockphoto.com/id/1335941248/photo/shot-of-a-handsome-young-man-standing-against-a-grey-background.jpg?b=1&s=170667a&w=0&k=20&c=Dl9uxPY_Xn159JiazEj0bknMkLxFdY7f4tK1GtOGmis=' 
+                avatarPath: 'https://media.istockphoto.com/id/1335941248/photo/shot-of-a-handsome-young-man-standing-against-a-grey-background.jpg?b=1&s=170667a&w=0&k=20&c=Dl9uxPY_Xn159JiazEj0bknMkLxFdY7f4tK1GtOGmis='
             },
             {
                 name: 'Ava',
@@ -66,9 +69,12 @@ function whiteboardReducer(state: WhiteBoardState, action: Action) {
     }
   }
 
-const WhiteboardStateProvider = ( ) => {
+const WhiteboardStateProvider = ({children}: PropsWithChildren) => {
     const [state, dispatch]  = useReducer(whiteboardReducer, defalutState);
-    return <WhiteBoardStore.Provider value={{ state, dispatch }}></WhiteBoardStore.Provider>;
+    console.log('ddddd', dispatch);
+    return <WhiteBoardStore.Provider value={{ state, dispatch }}>
+      {children}
+    </WhiteBoardStore.Provider>;
 };
 
 function useLoad() {
@@ -80,4 +86,3 @@ function useLoad() {
 }
 
 export { WhiteBoardStore, WhiteboardStateProvider };
-
