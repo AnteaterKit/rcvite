@@ -1,9 +1,10 @@
 export const WeatherReducer = (state: any, action: any) => {
     switch(action.type) {
         case 'SET_CITY':
+            console.log('dispatch', action);
             return {
                 ...state,
-                city: action.payload
+                defaultCity: action.payload
             };
         case 'SET_DAYS':
             return {

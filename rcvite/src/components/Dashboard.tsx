@@ -47,6 +47,14 @@ const mainListItems = (
                 <ListItemText primary="Whiteboard" />
             </ListItemButton>
         </Link>
+        <Link to="/weather">
+            <ListItemButton>
+                <ListItemIcon>
+                <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="weather" />
+            </ListItemButton>
+        </Link>
     </React.Fragment>
   );
 
