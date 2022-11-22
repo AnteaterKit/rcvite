@@ -1,4 +1,5 @@
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useReducer, useState } from "react";
+import axios from "axios";
 
 export interface User {
     name: string;
@@ -31,15 +32,17 @@ export function UsersProvider(props: PropsWithChildren<{}>) {
 
 export type Action = 'loading' | 'load' |  'loaded';
 
-const initialState = {state: { loading: true } } as ConxtextState;
+const defaultDispatch: Dispatch<Action> = () => defalutState;
+
+const initialState = { 
+    state: defalutState,
+    dispatch: defaultDispatch
+} as ConxtextState;
 const WhiteBoardStore = createContext(initialState);
 
 // https://stackblitz.com/edit/reactjs-usecontext-usereducer-state-management?file=src%2FStore.js
 // https://dev.to/devsmitra/3-steps-to-create-custom-state-management-library-with-react-hooks-and-context-api-1bfh
 // https://blog.logrocket.com/react-hooks-context-redux-state-management/
-
-//export const reducer = (state, action) => {
-//};
 
 function whiteboardReducer(state: WhiteBoardState, action: Action) {
     switch (action) {
@@ -63,7 +66,6 @@ function whiteboardReducer(state: WhiteBoardState, action: Action) {
 
 const WhiteboardStateProvider = ({children}: PropsWithChildren) => {
     const [state, dispatch]  = useReducer(whiteboardReducer, defalutState);
-    console.log('ddddd', dispatch);
     return <WhiteBoardStore.Provider value={{ state, dispatch }}>
       {children}
     </WhiteBoardStore.Provider>;

@@ -6,16 +6,10 @@ import { WhiteBoardStore } from "../../state/whiteboard.state";
 
 export const Whiteboard: React.FC<{msg: string}> = () => {
     const { state, dispatch } = useContext(WhiteBoardStore);
-    console.log('state2', state, dispatch);
-    console.log('dispatch', dispatch);
 
-    
     const load = () => {
-        console.log('The link was clicked.', dispatch);
-        dispatch('load');
+        dispatch('loaded');
     }
-
-
     return (
         <div>
             {

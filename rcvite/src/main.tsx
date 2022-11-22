@@ -6,6 +6,7 @@ import './index.css'
 import { Delivery } from './pages/delivery'
 import { Orders } from './pages/orders'
 import { Whiteboard } from './pages/whiteboard'
+import { WhiteboardStateProvider } from './state/whiteboard.state'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -14,7 +15,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/" element={<App />}>
           <Route path="orders" element={<Orders msg={'odrers'} />}></Route>
           <Route path="delivery" element={<Delivery msg={'delivery'} />}></Route>
-          <Route path="whiteboard" element={<Whiteboard msg={'Whiteboard'} />}></Route>
+          <Route path="whiteboard" element={<WhiteboardStateProvider>
+            <Whiteboard msg={'Whiteboard'} />
+            </WhiteboardStateProvider>
+            }>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
