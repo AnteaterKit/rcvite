@@ -16,7 +16,7 @@ export enum Cities {
 export interface WeatherState {
     defaultCity: Cities,
     cities: Cities[],
-    items: Array<WeatherDay>
+    items: any
 }
 
 export type Action = 'SET_CITY' | 'SET_DAYS';
@@ -29,7 +29,7 @@ type ConxtextState = {
 const defalutState: WeatherState  = {
   defaultCity: Cities.Moscow,
   cities: [Cities.Moscow, Cities.SPB],
-  items: new Array<WeatherDay>()
+  items: []
 }
 
 const defaultDispatch: Dispatch<any> = () => defalutState;

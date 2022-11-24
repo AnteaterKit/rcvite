@@ -1,5 +1,6 @@
 import { Button, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useEffect } from "react";
 import { Userlist } from "../../components/Whiteboard/userlist"
 import { Userbar } from "../../components/Whiteboard/usersbar"
 import { Cities, WeatherContext } from "../../state/weather/WeatherState";
@@ -16,30 +17,48 @@ function getCityName(city: Cities) {
 }
 
 export const Weather: React.FC<{msg: string}> = () => {
-    const { state, dispatch } = useContext(WeatherContext);
-    console.log('state');
+    const { state: { cities, defaultCity }, dispatch } = useContext(WeatherContext);
+
     const handleChange = (event: SelectChangeEvent) => {
-       console.log(event.target.value);
         dispatch({type: 'SET_CITY', payload: event.target.value});
     };
+
+    const APIKEY = '34480b98aa332da53123a0ac63a4ea9d';
+    let lat = 12.9699;
+    let long = 77.5980;
+    let exclude = 'hourly,minutely';
+    const ULR =  `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=${exclude}&units=metric&lang=tr&appid=${APIKEY}`
     
-    const menuItems = state.cities.map((x) => (
+    const fetchData = ()=>{
+        axios(ULR).then((data)=>{
+            const items = data.data.daily
+            dispatch({
+                type:'SET_DAYS',
+                payload: items
+            })
+        })
+    }
+
+    // https://dmitripavlutin.com/react-useeffect-infinite-loop/
+    useEffect(()=> {
+        fetchData();
+     }, [cities, defaultCity]);
+    
+    const menuItems = cities.map((x) => (
         <MenuItem key={x} value={x}>{getCityName(x) }, {x}</MenuItem>
     ));
 
     return (
         <div>
-            Weather in { getCityName(state.defaultCity) }
+            Weather in { getCityName(defaultCity) }
             <Select
-                value={state.defaultCity.toString()}
+                value={defaultCity.toString()}
                 label="Age"
                 onChange={handleChange}
             >
                 {menuItems}
             </Select>
-            { 
-                state.items.map((item) => (<li>{item.degrees}</li>))
-            }
+       
           
         </div>
     )

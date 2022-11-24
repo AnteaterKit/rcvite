@@ -9,7 +9,7 @@ export const WeatherReducer = (state: any, action: any) => {
         case 'SET_DAYS':
             return {
                 ...state,
-                days: action.payload
+                items: action.payload
             }
         default: return {...state};
     }
